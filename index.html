@@ -37,6 +37,10 @@
             width: 100%;
             height: auto;
         }
+        .featured img {
+            max-width: 500px; /* Reduce the width */
+            height: auto; /* Maintain aspect ratio */
+        }
     </style>
     <!-- Preload important resources -->
     <link rel="preload" href="apollo-master/assets/css/main.css" as="style">
@@ -151,6 +155,27 @@
         script.defer = true;
         document.body.appendChild(script);
     });
+
+    // Ensure compatibility with bfcache
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            console.log('Page restored from bfcache');
+        }
+    });
+
+    window.addEventListener('pagehide', function (event) {
+        if (event.persisted) {
+            console.log('Page is being hidden but may be restored later');
+        } else {
+            console.log('Page is being unloaded, cleaning up resources...');
+            // Clean up global state or event listeners here
+        }
+    });
+
+    // Avoid using unload events as they prevent bfcache
+    // window.addEventListener('unload', function () {
+    //     console.log('This event prevents bfcache from working');
+    // });
 </script>
 </body>
 </html>
