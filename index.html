@@ -17,7 +17,7 @@
             font-family: 'CustomFont';
             src: url('apollo-master/assets/fonts/custom-font.woff2') format('woff2'),
             url('apollo-master/assets/fonts/custom-font.woff') format('woff');
-            font-display: swap;
+            font-display: swap; /* Ensures fallback font is used until the custom font loads */
         }
         body {
             margin: 0;
@@ -63,7 +63,7 @@
             <h1><strong>Apollo</strong> Jade Template</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex.</p>
         </div>
-        <div class="photographer"><img src="apollo-master/assets/img/hero.webp" alt="Photographer" width="600" height="400"></div>
+        <div class="photographer"><img src="apollo-master/assets/img/hero.webp" loading="eager" alt="Photographer" width="600" height="400"></div>
     </div>
 </section>
 <section id="about"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 203.6" style="enable-background:new 0 0 100 203.6;" xml:space="preserve">
@@ -72,7 +72,7 @@
 </g>
 </svg>
     <div class="wrapper">
-        <div class="camera"><img src="apollo-master/assets/img/camera.webp" alt="Camera" width="400" height="300"></div>
+        <div class="camera"><img src="apollo-master/assets/img/camera.webp" loading="lazy" alt="Camera" width="400" height="300"></div>
         <div class="blurb">
             <h2>My name is <strong>Apollo</strong></h2>
             <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.<br><br>Ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
@@ -106,7 +106,7 @@
             <h2><strong>Ut enim</strong> ad minim</h2>
             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
         </div>
-        <div class="featured"><img src="apollo-master/assets/img/featured.webp" alt="Featured" width="500" height="350"></div>
+        <div class="featured"><img src="apollo-master/assets/img/featured.webp" loading="lazy" alt="Featured" width="500" height="350"></div>
     </div>
 </section>
 <section id="three-slide"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 248.8" style="enable-background:new 0 0 100 248.8;" xml:space="preserve">
@@ -116,10 +116,10 @@
 </svg>
     <div class="wrapper">
         <ul class="slider">
-            <li class="back"><img src="apollo-master/assets/img/three-slide/thumb-1.webp" alt="Thumbnail 1" width="150" height="250"></li>
-            <li class="current"><img src="apollo-master/assets/img/three-slide/thumb-2.webp" alt="Thumbnail 2" width="150" height="250"></li>
-            <li class="front"><img src="apollo-master/assets/img/three-slide/thumb-3.jpg" alt="Thumbnail 3" width="150" height="250"></li>
-            <li><img src="apollo-master/assets/img/three-slide/thumb-4.jpg" alt="Thumbnail 4" width="150" height="250"></li>
+            <li class="back"><img src="apollo-master/assets/img/three-slide/thumb-1.webp" loading="lazy" alt="Thumbnail 1" width="150" height="250"></li>
+            <li class="current"><img src="apollo-master/assets/img/three-slide/thumb-2.webp" loading="lazy" alt="Thumbnail 2" width="150" height="250"></li>
+            <li class="front"><img src="apollo-master/assets/img/three-slide/thumb-3.jpg" loading="lazy" alt="Thumbnail 3" width="150" height="250"></li>
+            <li><img src="apollo-master/assets/img/three-slide/thumb-4.jpg" loading="lazy" alt="Thumbnail 4" width="150" height="250"></li>
         </ul>
     </div><i class="icon-chevron-thin-left prev"></i><i class="icon-chevron-thin-right next"></i>
 </section>
@@ -143,6 +143,14 @@
     <p class="copyright">&copy; Apollo 2016</p>
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js" defer></script>
-<script src="apollo-master/assets/js/functions-min.js" defer></script>
+<script>
+    // Defer loading of non-critical JavaScript
+    window.addEventListener('load', function () {
+        var script = document.createElement('script');
+        script.src = "apollo-master/assets/js/functions-min.js";
+        script.defer = true;
+        document.body.appendChild(script);
+    });
+</script>
 </body>
 </html>
